@@ -1,10 +1,9 @@
 var task1 = require("./task1.js");
 var task2 = require("./task2.js");
-
 // number of bits (if N > 32, only use findLongestAfterFlippingStr, because bitwise operations cant handle > 32 bit numbers)
-var N = 10;
+var N = 31;
 // number of moves (bitflips)
-var M = 1;
+var M = 4;
 // random number between 0 and 2^N (excluding 2^N itself)
 var A = Math.floor(Math.random() * 2 ** N);
 var Astr = A.toString(2).padStart(N, "0");
