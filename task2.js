@@ -93,7 +93,6 @@ module.exports = {
     var flips = [[], []];
     // initialize steps
     var defflips = [[], []];
-
     while (N - window[0] > longest[1] - longest[0] + 1) {
       while ((flips[0].length <= M || flips[1].length <= M) && window[1] < N) {
         if (window[1] - window[0] > longest[1] - longest[0]) {

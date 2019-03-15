@@ -31,7 +31,6 @@ module.exports = {
     // once the current window has reached the end of the binary string, return the longest window
     return longest;
   },
-
   // same function but using a string of characters "0" and "1", for > 32 bit strings
   findLongestAfterFlippingStr: function(A, M, N) {
     // first window to investigate has zero length, so ending bit schould be before starting bit
