@@ -90,44 +90,39 @@ module.exports = {
     // initialize array holding the largest window found
     var longest = [0, 0];
     // initialize counted flips
-    var flips = [0, 0];
-    // initialize step buffer
-    var tempsteps = [[], []];
+    var flips = [[], []];
     // initialize steps
-    var steps = [[], []];
+    var defflips = [[], []];
 
     while (N - window[0] > longest[1] - longest[0] + 1) {
-      while ((flips[0] <= M || flips[1] <= M) && window[1] < N) {
+      while ((flips[0].length <= M || flips[1].length <= M) && window[1] < N) {
         if (window[1] - window[0] > longest[1] - longest[0]) {
-          steps[0] = tempsteps[0].slice();
-          steps[1] = tempsteps[1].slice();
+          defflips[0] = flips[0].slice();
+          defflips[1] = flips[1].slice();
           longest = window.slice();
         }
         window[1]++;
         // if we have a 1 at new index, we have to flip it to increase string of zeroes. This however also flips the next bit
         if (temp[0][N - window[1] - 1] == "1") {
           temp[0] = temp[0].substr(0, N - window[1] - 1) + "0" + temp[0].substr(N - window[1], N - 1);
-          tempsteps[0].push(window[1]);
           if (temp[0][N - window[1] - 2] == "1") temp[0] = temp[0].substr(0, N - window[1] - 2) + "0" + temp[0].substr(N - window[1] - 1, N - 1);
           else if (temp[0][N - window[1] - 2] == "0") temp[0] = temp[0].substr(0, N - window[1] - 2) + "1" + temp[0].substr(N - window[1] - 1, N - 1);
-          flips[0]++;
+          flips[0].push(window[1]);
         }
         if (temp[1][N - window[1] - 1] == "0") {
           temp[1] = temp[1].substr(0, N - window[1] - 1) + "0" + temp[1].substr(N - window[1], N - 1);
-          tempsteps[1].push(window[1]);
           if (temp[1][N - window[1] - 2] == "1") temp[1] = temp[1].substr(0, N - window[1] - 2) + "0" + temp[1].substr(N - window[1] - 1, N - 1);
           else if (temp[1][N - window[1] - 2] == "0") temp[1] = temp[1].substr(0, N - window[1] - 2) + "1" + temp[1].substr(N - window[1] - 1, N - 1);
-          flips[1]++;
+          flips[1].push(window[1]);
         }
       }
       window[0]++;
       // reinitialize temp, flips, step buffer, and left side of window after right side of window moves
-      tempsteps = [[], []];
       temp = [A, A];
-      flips = [0, 0];
+      flips = [[], []];
       window[1] = window[0] - 1;
     }
     // once the current window has reached the end of the binary string, return the longest window
-    return { "longest window: ": longest, "flips for zeroes: ": steps[0], "flips for ones: ": steps[1] };
+    return { "longest window: ": longest, "flips for zeroes: ": defflips[0], "flips for ones: ": defflips[1] };
   }
 };
